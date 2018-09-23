@@ -15,6 +15,7 @@ func main() {
 	var (
 		population       []individual
 		topPercent       int
+		mutationRate     float64
 		populationNum    int
 		maxGenotypeLen   int
 		generationsNum   int
@@ -22,11 +23,12 @@ func main() {
 	)
 
 	// hyperparams
-	topPercent = 40
 	populationNum = 1000
-	maxGenotypeLen = 10
 	generationsNum = 100
+	mutationRate = 0.05
+	maxGenotypeLen = 10
 	maxGenotypeValue = 100
+	topPercent = 40
 
 	population = makePopulation(populationNum, maxGenotypeLen, maxGenotypeValue)
 	population = eval_fitness(population)
@@ -34,11 +36,12 @@ func main() {
 	fmt.Println("Initial Population Winning fitness: ", population[0].Fitness)
 	fmt.Println("Initial Population Winning genotype: ", population[0].genotype)
 
+	// algorithm loop
 	for generation := 0; generation < generationsNum; generation++ {
 		population = eval_fitness(population)
 		population = selection(population, topPercent)
 		population = crossover(population, populationNum)
-		population = mutation(population, maxGenotypeValue)
+		population = mutation(population, mutationRate, maxGenotypeValue)
 	}
 
 	population = selection(population, topPercent)
@@ -46,13 +49,9 @@ func main() {
 	fmt.Println("Final Population Winning genotype: ", population[0].genotype)
 }
 
-func mutation(population []individual, maxGenotypeValue int) []individual {
-	var (
-		mutationRate float64
-		randomNumber float64
-	)
+func mutation(population []individual, mutationRate float64, maxGenotypeValue int) []individual {
+	var randomNumber float64
 
-	mutationRate = 0.05
 	for _, i := range population {
 		randomNumber = rand.Float64()
 		if mutationRate > randomNumber {
