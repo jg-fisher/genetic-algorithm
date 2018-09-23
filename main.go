@@ -12,7 +12,6 @@ type individual struct {
 }
 
 func main() {
-
 	var (
 		population       []individual
 		topPercent       int
@@ -45,19 +44,15 @@ func main() {
 	population = selection(population, topPercent)
 	fmt.Println("Final Population Winning fitness: ", population[0].Fitness)
 	fmt.Println("Final Population Winning genotype: ", population[0].genotype)
-
-	// mutation
 }
 
 func mutation(population []individual, maxGenotypeValue int) []individual {
-
 	var (
 		mutationRate float64
 		randomNumber float64
 	)
 
 	mutationRate = 0.05
-
 	for _, i := range population {
 		randomNumber = rand.Float64()
 		if mutationRate > randomNumber {
@@ -122,8 +117,6 @@ func remove(slice []individual, s int) []individual {
 }
 
 func makeCrossoverIndividual(parentOne individual, parentTwo individual, maxGenotypeLen int) individual {
-	// uniform crossover
-
 	var (
 		parentOneGene  int
 		parentTwoGene  int
@@ -134,7 +127,7 @@ func makeCrossoverIndividual(parentOne individual, parentTwo individual, maxGeno
 		fitness        int
 	)
 
-	// inherit genotype
+	// uniform crossover
 	for index := 0; index < maxGenotypeLen; index++ {
 
 		parentOneGene = parentOne.genotype[index]
@@ -158,7 +151,6 @@ func makeCrossoverIndividual(parentOne individual, parentTwo individual, maxGeno
 }
 
 func makePopulation(populationNum int, maxGenotypeLen int, maxGenotypeValue int) []individual {
-
 	var (
 		population []individual
 	)
@@ -172,7 +164,6 @@ func makePopulation(populationNum int, maxGenotypeLen int, maxGenotypeValue int)
 }
 
 func makeRandomIndividual(maxGenotypeLen int, maxGenotypeValue int) individual {
-
 	var (
 		newIndividual individual
 		genotype      []int
@@ -190,7 +181,6 @@ func makeRandomIndividual(maxGenotypeLen int, maxGenotypeValue int) individual {
 }
 
 func makeGenotype(maxGenotypeLength int, maxGenotypeValue int) []int {
-
 	var (
 		genotype     []int
 		randomNumber int
