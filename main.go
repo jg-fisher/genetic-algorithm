@@ -31,14 +31,14 @@ func main() {
 	topPercent = 40
 
 	population = makePopulation(populationNum, maxGenotypeLen, maxGenotypeValue)
-	population = eval_fitness(population)
+	population = evalFitness(population)
 
 	fmt.Println("Initial Population Winning fitness: ", population[0].Fitness)
 	fmt.Println("Initial Population Winning genotype: ", population[0].genotype)
 
 	// algorithm loop
 	for generation := 0; generation < generationsNum; generation++ {
-		population = eval_fitness(population)
+		population = evalFitness(population)
 		population = selection(population, topPercent)
 		population = crossover(population, populationNum)
 		population = mutation(population, mutationRate, maxGenotypeValue)
@@ -75,7 +75,7 @@ func selection(population []individual, topPercent int) []individual {
 }
 
 // sum of genotype
-func eval_fitness(population []individual) []individual {
+func evalFitness(population []individual) []individual {
 	var sum int
 	for i := 0; i < len(population); i++ {
 		for gene := 0; gene < len(population[i].genotype); gene++ {
